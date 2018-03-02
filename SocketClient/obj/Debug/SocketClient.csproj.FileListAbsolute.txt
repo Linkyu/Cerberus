@@ -1,0 +1,6 @@
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\bin\Debug\SocketClient.exe
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\bin\Debug\SocketClient.pdb
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\obj\Debug\SocketClient.csprojResolveAssemblyReference.cache
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\obj\Debug\SocketClient.csproj.CoreCompileInputs.cache
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\obj\Debug\SocketClient.exe
+C:\Users\Nox\RiderProjects\Cerberus\SocketClient\obj\Debug\SocketClient.pdb
