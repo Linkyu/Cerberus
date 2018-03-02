@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Analyzer
 {
@@ -54,7 +55,6 @@ namespace Analyzer
                     }
 
                     i++;
-                    Console.WriteLine(i);
                 }
 
                 Console.WriteLine();
@@ -70,7 +70,7 @@ namespace Analyzer
             }
             
             stopWatch.Stop();
-            Console.WriteLine("Time elapsed:" + stopWatch.ElapsedMilliseconds / 1000 + "s");
+            Console.WriteLine("Time elapsed:" + stopWatch.ElapsedMilliseconds + "ms");
         }
     }
 }
