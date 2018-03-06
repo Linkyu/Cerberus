@@ -12,7 +12,10 @@ namespace Analyzer
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            using(var reader = new StreamReader(@"..\..\resources\genome-manusporny.txt"))
+            
+            const string genomeFile = @"..\..\resources\genome-manusporny.txt";
+            
+            using(var reader = new StreamReader(genomeFile))
             {
                 const char separator = '\t';
                 var genotypesDictionary = new Dictionary<char, int>();
@@ -21,7 +24,7 @@ namespace Analyzer
                 var dashes = 0;
                 
                 
-                reader.ReadLine();  // Skip the first line (header)
+                reader.ReadLine();  // Skip the first line (it's the header)
                 
                 while (!reader.EndOfStream)
                 {
@@ -30,16 +33,12 @@ namespace Analyzer
                     
                     var values = line.Split(separator);
 
-                    //int.TryParse(values[2], out var pos);
-                    //orderedGenome.Insert(SearchIndex(orderedGenome, pos), line);
-                    //var index = orderedGenome.BinarySearch(pos);
-
                     var key = values[3].ToUpper();
-                    if (key.Length == 2)
+                    if (key.Length == 2)    // As of now, we don't parse single-letter genotypes since we don't know how to process them
                     {
                         foreach (var c in key)
                         {
-                            if (!new List<char> {'A', 'T', 'C', 'G'}.Contains(c)) continue;
+                            if (!new List<char> {'A', 'T', 'C', 'G'}.Contains(c)) continue;    // Ignore indel varients and "--"
                             
                             if (genotypesDictionary.ContainsKey(c))
                             {
@@ -62,7 +61,7 @@ namespace Analyzer
                     }
 
                     i++;
-                    //Console.WriteLine(i);
+                    //Console.WriteLine(i);    // Display current read line (slow!!!)
                 }
 
                 Console.WriteLine();
@@ -75,8 +74,10 @@ namespace Analyzer
 
                 Console.WriteLine("--: " + dashes + " - " + (float)dashes / i * 50 + "%");
                 Console.WriteLine("??: " + unknowns + " - " + (float)unknowns / i * 50 + "%");
-
-                var lines = File.ReadAllLines(@"..\..\resources\genome-manusporny.txt").ToList();
+                
+                
+                // Sort the file by position
+                var lines = File.ReadAllLines(genomeFile).ToList();
                 lines.RemoveAt(0);
                 var orderedLines = lines.OrderBy(s => int.Parse(s.Split(separator)[2])).ToList();
                 var sequencesDictionary = new Dictionary<string, int>();
