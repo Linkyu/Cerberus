@@ -1,0 +1,6 @@
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\bin\Debug\Analyzer.exe
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\bin\Debug\Analyzer.pdb
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\obj\Debug\Analyzer.csprojResolveAssemblyReference.cache
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\obj\Debug\Analyzer.csproj.CoreCompileInputs.cache
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\obj\Debug\Analyzer.exe
+C:\Users\Nox\RiderProjects\Cerberus\Analyzer\obj\Debug\Analyzer.pdb
