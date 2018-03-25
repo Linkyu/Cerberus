@@ -6,168 +6,165 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace ConsoleApp1 {
+namespace ConsoleApp1
+{
 
     class Program {
 
-        static void Main(string[] args)
+        private static string[] INPUT_FILES =
         {
-            const string DNA_DATAS_FILE = @"..\..\genome-quartzjer.txt";
-            using (StreamReader reader = new StreamReader(DNA_DATAS_FILE)) {
-                reader.ReadLine();
-
-                List<string> dnaSequence = File.ReadAllLines(DNA_DATAS_FILE).ToList();
-                dnaSequence.RemoveAt(0);
-                int i = 0;
-
-                TaskManager mger = new TaskManager(dnaSequence);
-                mger.startTask();
-                var gentypeDictionary = mger.GenotypesDictionary;
-                var nitrogenBases = new List<char> {'A', 'C', 'T', 'G'};
-
-                foreach (var nitrogenBase in nitrogenBases)
-                {
-                    Console.Out.WriteLine( nitrogenBase + " present " + gentypeDictionary[nitrogenBase] + " fois.");
-                    
-                }
+            @"..\..\genome-greshake.txt", @"..\..\genome-kennethreitz.txt", @"..\..\genome-kukushkin.txt",
+            @"..\..\genome-manusporny.txt", @"..\..\genome-quartzjer.txt", @"..\..\genome-soffes.txt"
+        };
 
 
+        private static List<string> dna_input_files = null;
 
+        static void Main() {
+
+            dna_input_files = new List<string>();
+            foreach (var inputFile in INPUT_FILES) {
+                dna_input_files.Add(inputFile);
             }
 
-        }
-
-
-    }
-
-
-
-   
-    
-    
-    public class TaskManager {
-
-        private List<string> genomeRows;
-
-        private Task counter { get; set; }
-        
-        private List<Task> currentTask;
-
-        public Dictionary<char, int> GenotypesDictionary { get; set; }
-        
-        public TaskManager(List<string> rows) {
-            genomeRows = rows;
-            Console.WriteLine("Nombre d'element : " + genomeRows.Count);
-            counter = new Task(ParseGenome);
-            currentTask = new List<Task>();
-    
-        }
-
-        public void AddTask(Task task) {
-            currentTask.Add(task);
-        }
-
-        public void startTask()
-        {
-            counter.Start();
-            counter.Wait();
-
-        }
-
-
-
-        private void SortFileByPosition()
-        {
-            const string separator = "\t";
-            var orderedLines = genomeRows.OrderBy(s => int.Parse(s.Split(separator)[2])).ToList();
-            var sequencesDictionary = new Dictionary<string, int>();
-                
-            for (var j = 0; j < orderedLines.Count - 1; j++)
-            {
-                var key = orderedLines[j].Split(separator)[3] + orderedLines[j+1].Split(separator)[3];
-                if (key.Length != 4 || key.Contains('D') || key.Contains('I') || key.Contains('-')) continue;
-                    
-                if (sequencesDictionary.ContainsKey(key))
-                {
-                    sequencesDictionary[key]++;
+            for (var i = 0; i < dna_input_files.Count; i++) {
+                Task<DNAStatisticsInfos> infos = Task.Run(() => parseGenome(dna_input_files.ElementAt(i)));
+                Task.WaitAll();
+                DNAStatisticsInfos statistics = infos.Result;
+                if (statistics != null) {
+                    dna_input_files.RemoveAt(i);
+                    Console.WriteLine(statistics.Dashes + " dashes in this sequence.");
+                    Console.WriteLine(statistics.Unknowns + "unknons pairs");
+                    Console.WriteLine("Adenine has " + statistics.infosNitrogenBases['A'] +
+                                      " occurences in this sequence. ");
+                    Console.WriteLine("Cytosine has " + statistics.infosNitrogenBases['C'] +
+                                      " occurences in this sequence. ");
+                    Console.WriteLine("Thymine has " + statistics.infosNitrogenBases['T'] +
+                                      " occurences in this sequence. ");
+                    Console.WriteLine("Guanine has " + statistics.infosNitrogenBases['G'] +
+                                      " occurences in this sequence. ");
                 }
-                else
-                {
-                    sequencesDictionary[key] = 1;
-                }
+
             }
-                
-            var sortedSequencesDictionary = from entry in sequencesDictionary orderby entry.Value descending select entry;
-
-            
         }
 
-        //Task that count the number of dashes and unknows nitrogen base
-        private void ParseGenome()  {
-            Console.WriteLine("Starting a new Task");
-            var dashes = 0;
-            var unknowns = 0;
-            const string SEPARATOR = "\t";
-             GenotypesDictionary = new Dictionary<char, int>();
-            var line = string.Empty;
-            
-            for (int i = 0; i < genomeRows.Count; i++) {
-                line = genomeRows[i];
-                var values = line.Split(SEPARATOR);
-              
-                var key = values[3].ToUpper();
-                if (key.Length == 2) {
-                    foreach (var c in key) {
-                        if (!new List<char> {'A', 'T', 'C', 'G'}.Contains(c)) continue;    // Ignore indel varients and "--"
-                            
-                        if (GenotypesDictionary.ContainsKey(c)) {
-                            GenotypesDictionary[c]++;
-                        } else {
-                            GenotypesDictionary[c] = 1;
+        public static DNAStatisticsInfos parseGenome(string fileName) {
+            /**********************************************************************************************/
+            DNAStatisticsInfos infos = new DNAStatisticsInfos();
+            using (var reader = new StreamReader(fileName)) {
+                const char separator = '\t';
+                var genotypesDictionary = new Dictionary<char, int>();
+                var i = 0;
+                var unknowns = 0;
+                var dashes = 0;
+                reader.ReadLine(); // Skip the first line (it's the header)
+
+                while (!reader.EndOfStream) 
+                {
+                    var line = reader.ReadLine();
+                    if (line == null) continue;
+
+                    var values = line.Split(separator);
+
+                    var key = values[3].ToUpper();
+                    if (key.Length == 2
+                    ) // As of now, we don't parse single-letter genotypes since we don't know how to process them
+                    {
+                        foreach (var c in key) {
+                            if (!new List<char> {'A', 'T', 'C', 'G'}.Contains(c))
+                                continue; // Ignore indel varients and "--"
+
+                            if (genotypesDictionary.ContainsKey(c))
+                            {
+                                genotypesDictionary[c]++;
+                            }
+                            else
+                            {
+                                genotypesDictionary[c] = 1;
+                            }
+                        }
+
+                        if (key == "--")
+                        {
+                            //dashes++;
+                            infos.Dashes++;
                         }
                     }
-                    if (key == "--") {
-                        dashes++;
+                    else
+                    {
+                        infos.Unknowns++;
                     }
-                } else {
-                    
-                    unknowns++;
+
+                    i++;
+                    //Console.WriteLine(i);    // Display current read line (slow!!!)
+                }
+
+                Console.WriteLine();
+                Console.WriteLine(i + " pairs read");
+
+                foreach (var pair in genotypesDictionary)
+                {
+                    Console.WriteLine(pair.Key + ": " + pair.Value + " - " + (float) pair.Value / i * 50 + "%");
+                }
+
+                Console.WriteLine("--: " + dashes + " - " + (float) dashes / i * 50 + "%");
+                Console.WriteLine("??: " + unknowns + " - " + (float) unknowns / i * 50 + "%");
+
+
+                // Sort the file by position
+                var lines = File.ReadAllLines(fileName).ToList();
+                lines.RemoveAt(0);
+                var orderedLines = lines.OrderBy(s => int.Parse(s.Split(separator)[2])).ToList();
+                var sequencesDictionary = new Dictionary<string, int>();
+
+                for (var j = 0; j < orderedLines.Count - 1; j++)
+                {
+                    var key = orderedLines[j].Split(separator)[3] + orderedLines[j + 1].Split(separator)[3];
+                    if (key.Length != 4 || key.Contains('D') || key.Contains('I') || key.Contains('-')) continue;
+
+                    if (sequencesDictionary.ContainsKey(key))
+                    {
+                        sequencesDictionary[key]++;
+                    }
+                    else
+                    {
+                        sequencesDictionary[key] = 1;
+                    }
+                }
+
+                var sortedSequencesDictionary =
+                    from entry in sequencesDictionary orderby entry.Value descending select entry;
+                infos.infosNitrogenBases = genotypesDictionary;
+
+                Console.WriteLine();
+                Console.WriteLine("4-sequences occurences:");
+                foreach (var pair in sortedSequencesDictionary)
+                {
+                    Console.WriteLine(pair.Key + ": " + pair.Value);
+                    //break; // We only want the highest one
                 }
             }
+            /***********************************************************************************************/
 
-            
-            
-        }  
-        
+            return infos;
+        }
+
     }
-    
+
+    public class DNAStatisticsInfos
+    {
+        public int Dashes { get; set; }
+        public int Unknowns { get; set; }
+        public Dictionary<char, int> infosNitrogenBases { get; set; }
+
+        private static int DEFAULT_VALUE = 0;
+
+        public DNAStatisticsInfos()
+        {
+            Dashes = DEFAULT_VALUE;
+            Unknowns = DEFAULT_VALUE;
+            infosNitrogenBases = new Dictionary<char, int>();
+
+        }
+    }
 }
-
-
-/*var task = new Task<string>(Test);
-
-//démarrer la tache
-task.Start();
-
-
-task.Wait();
-Program prog = new Program();
-Task taskCalcul = new Task(() => {
-    int somme = 0;
-    for (int i = 0; i < 10; i++) {
-        somme += i;
-    }
-
-    Console.WriteLine(somme);
-    
-    throw new Exception();
-
-});
-
-taskCalcul.Start();
-Task test = new Task(calculer);
-task.ContinueWith((t1) =>
-{
-    Console.WriteLine(t1.Result);
-});
-*/
