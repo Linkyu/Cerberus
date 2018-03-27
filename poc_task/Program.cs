@@ -27,24 +27,27 @@ namespace ConsoleApp1
                 dna_input_files.Add(inputFile);
             }
 
+            List <DNAStatisticsInfos> results = new List<DNAStatisticsInfos>();
+            DNAStatisticsInfos statistics = null;
             for (var i = 0; i < dna_input_files.Count; i++) {
                 Task<DNAStatisticsInfos> infos = Task.Run(() => parseGenome(dna_input_files.ElementAt(i)));
-                Task.WaitAll();
-                DNAStatisticsInfos statistics = infos.Result;
-                if (statistics != null) {
-                    dna_input_files.RemoveAt(i);
-                    Console.WriteLine(statistics.Dashes + " dashes in this sequence.");
-                    Console.WriteLine(statistics.Unknowns + "unknons pairs");
-                    Console.WriteLine("Adenine has " + statistics.infosNitrogenBases['A'] +
+                statistics = infos.Result;
+                results.Add(statistics);
+            }
+
+            for (var i = 0; i < results.Count; i++) {
+                if (results[i] != null) {
+                    Console.WriteLine(results[i].Dashes + " dashes in this sequence.");
+                    Console.WriteLine(results[i].Unknowns + "unknons pairs");
+                    Console.WriteLine("Adenine has " + results[i].infosNitrogenBases['A'] +
                                       " occurences in this sequence. ");
-                    Console.WriteLine("Cytosine has " + statistics.infosNitrogenBases['C'] +
+                    Console.WriteLine("Cytosine has " + results[i].infosNitrogenBases['C'] +
                                       " occurences in this sequence. ");
-                    Console.WriteLine("Thymine has " + statistics.infosNitrogenBases['T'] +
+                    Console.WriteLine("Thymine has " + results[i].infosNitrogenBases['T'] +
                                       " occurences in this sequence. ");
-                    Console.WriteLine("Guanine has " + statistics.infosNitrogenBases['G'] +
+                    Console.WriteLine("Guanine has " + results[i].infosNitrogenBases['G'] +
                                       " occurences in this sequence. ");
                 }
-
             }
         }
 
