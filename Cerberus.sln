@@ -4,9 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.0.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer", "Analyzer\Analyzer.csproj", "{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SocketServer\SocketServer.csproj", "{1D147DE8-F5FF-4C6B-975F-F17A98996F8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator", "Orchestrator\Orchestrator.csproj", "{26224101-B24B-409C-98DF-1636B17C81C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClient", "SocketClient\SocketClient.csproj", "{6147A574-E3F1-4EC9-B4F2-570598899AD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "poc_task", "poc_task\poc_task.csproj", "{BA094A64-DF7F-431B-AEEE-FC341B93B896}"
 EndProject
@@ -16,14 +16,14 @@ Global
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D147DE8-F5FF-4C6B-975F-F17A98996F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D147DE8-F5FF-4C6B-975F-F17A98996F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D147DE8-F5FF-4C6B-975F-F17A98996F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D147DE8-F5FF-4C6B-975F-F17A98996F8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6147A574-E3F1-4EC9-B4F2-570598899AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6147A574-E3F1-4EC9-B4F2-570598899AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6147A574-E3F1-4EC9-B4F2-570598899AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6147A574-E3F1-4EC9-B4F2-570598899AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26224101-B24B-409C-98DF-1636B17C81C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26224101-B24B-409C-98DF-1636B17C81C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26224101-B24B-409C-98DF-1636B17C81C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26224101-B24B-409C-98DF-1636B17C81C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Release|Any CPU.ActiveCfg = Release|Any CPU
