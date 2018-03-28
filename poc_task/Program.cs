@@ -1,65 +1,64 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.IO;
 using System.Collections.Generic;
-
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
-
-namespace ConsoleApp1
+namespace poc_task
 {
 
     class Program {
 
-        private static string[] INPUT_FILES =
+        private static readonly string[] InputFiles =
         {
             @"..\..\genome-greshake.txt", @"..\..\genome-kennethreitz.txt", @"..\..\genome-kukushkin.txt",
             @"..\..\genome-manusporny.txt", @"..\..\genome-quartzjer.txt", @"..\..\genome-soffes.txt"
         };
 
 
-        private static List<string> dna_input_files = null;
+        private static List<string> _dnaInputFiles;
 
-        static void Main() {
+        private static void Main()
+        {
 
-            dna_input_files = new List<string>();
-            foreach (var inputFile in INPUT_FILES) {
-                dna_input_files.Add(inputFile);
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            _dnaInputFiles = new List<string>();
+            foreach (var inputFile in InputFiles) {
+                _dnaInputFiles.Add(inputFile);
             }
 
-            List <DNAStatisticsInfos> results = new List<DNAStatisticsInfos>();
-            DNAStatisticsInfos statistics = null;
-            for (var i = 0; i < dna_input_files.Count; i++) {
-                Task<DNAStatisticsInfos> infos = Task.Run(() => parseGenome(dna_input_files.ElementAt(i)));
-                statistics = infos.Result;
-                results.Add(statistics);
-            }
+            var results = _dnaInputFiles.Select((t, i) => Task.Run(() => ParseGenome(_dnaInputFiles.ElementAt(i)))).Select(infos => infos.Result).ToList();
 
-            for (var i = 0; i < results.Count; i++) {
-                if (results[i] != null) {
-                    Console.WriteLine(results[i].Dashes + " dashes in this sequence.");
-                    Console.WriteLine(results[i].Unknowns + "unknons pairs");
-                    Console.WriteLine("Adenine has " + results[i].infosNitrogenBases['A'] +
-                                      " occurences in this sequence. ");
-                    Console.WriteLine("Cytosine has " + results[i].infosNitrogenBases['C'] +
-                                      " occurences in this sequence. ");
-                    Console.WriteLine("Thymine has " + results[i].infosNitrogenBases['T'] +
-                                      " occurences in this sequence. ");
-                    Console.WriteLine("Guanine has " + results[i].infosNitrogenBases['G'] +
-                                      " occurences in this sequence. ");
-                }
+            foreach (var result in results)
+            {
+                if (result == null) continue;
+                
+                Console.WriteLine(result.Dashes + " dashes in this sequence.");
+                Console.WriteLine(result.Unknowns + "unknowns pairs");
+                Console.WriteLine("Adenine has " + result.InfosNitrogenBases['A'] +
+                                  " occurences in this sequence. ");
+                Console.WriteLine("Cytosine has " + result.InfosNitrogenBases['C'] +
+                                  " occurences in this sequence. ");
+                Console.WriteLine("Thymine has " + result.InfosNitrogenBases['T'] +
+                                  " occurences in this sequence. ");
+                Console.WriteLine("Guanine has " + result.InfosNitrogenBases['G'] +
+                                  " occurences in this sequence. ");
             }
+            
+            stopwatch.Stop();
+            Console.Out.WriteLine("Time elapsed : " + stopwatch.ElapsedMilliseconds + " ms.");
         }
 
-        public static DNAStatisticsInfos parseGenome(string fileName) {
+        private static DNAStatisticsInfos ParseGenome(string fileName) {
             /**********************************************************************************************/
-            DNAStatisticsInfos infos = new DNAStatisticsInfos();
+            var infos = new DNAStatisticsInfos();
             using (var reader = new StreamReader(fileName)) {
                 const char separator = '\t';
                 var genotypesDictionary = new Dictionary<char, int>();
-                var i = 0;
-                var unknowns = 0;
-                var dashes = 0;
+                
                 reader.ReadLine(); // Skip the first line (it's the header)
 
                 while (!reader.EndOfStream) 
@@ -89,7 +88,6 @@ namespace ConsoleApp1
 
                         if (key == "--")
                         {
-                            //dashes++;
                             infos.Dashes++;
                         }
                     }
@@ -97,22 +95,7 @@ namespace ConsoleApp1
                     {
                         infos.Unknowns++;
                     }
-
-                    i++;
-                    //Console.WriteLine(i);    // Display current read line (slow!!!)
                 }
-
-                Console.WriteLine();
-                Console.WriteLine(i + " pairs read");
-
-                foreach (var pair in genotypesDictionary)
-                {
-                    Console.WriteLine(pair.Key + ": " + pair.Value + " - " + (float) pair.Value / i * 50 + "%");
-                }
-
-                Console.WriteLine("--: " + dashes + " - " + (float) dashes / i * 50 + "%");
-                Console.WriteLine("??: " + unknowns + " - " + (float) unknowns / i * 50 + "%");
-
 
                 // Sort the file by position
                 var lines = File.ReadAllLines(fileName).ToList();
@@ -134,18 +117,7 @@ namespace ConsoleApp1
                         sequencesDictionary[key] = 1;
                     }
                 }
-
-                var sortedSequencesDictionary =
-                    from entry in sequencesDictionary orderby entry.Value descending select entry;
-                infos.infosNitrogenBases = genotypesDictionary;
-
-                Console.WriteLine();
-                Console.WriteLine("4-sequences occurences:");
-                foreach (var pair in sortedSequencesDictionary)
-                {
-                    Console.WriteLine(pair.Key + ": " + pair.Value);
-                    //break; // We only want the highest one
-                }
+                infos.InfosNitrogenBases = genotypesDictionary;
             }
             /***********************************************************************************************/
 
@@ -154,19 +126,20 @@ namespace ConsoleApp1
 
     }
 
+    // ReSharper disable once InconsistentNaming
     public class DNAStatisticsInfos
     {
         public int Dashes { get; set; }
         public int Unknowns { get; set; }
-        public Dictionary<char, int> infosNitrogenBases { get; set; }
+        public Dictionary<char, int> InfosNitrogenBases { get; set; }
 
-        private static int DEFAULT_VALUE = 0;
+        private const int DefaultValue = 0;
 
         public DNAStatisticsInfos()
         {
-            Dashes = DEFAULT_VALUE;
-            Unknowns = DEFAULT_VALUE;
-            infosNitrogenBases = new Dictionary<char, int>();
+            Dashes = DefaultValue;
+            Unknowns = DefaultValue;
+            InfosNitrogenBases = new Dictionary<char, int>();
 
         }
     }
