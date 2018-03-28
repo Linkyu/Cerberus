@@ -1,6 +1,0 @@
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\bin\Debug\SocketServer.exe
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\bin\Debug\SocketServer.pdb
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\obj\Debug\SocketServer.csprojResolveAssemblyReference.cache
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\obj\Debug\SocketServer.csproj.CoreCompileInputs.cache
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\obj\Debug\SocketServer.exe
-C:\Users\Nox\RiderProjects\Cerberus\SocketServer\obj\Debug\SocketServer.pdb
