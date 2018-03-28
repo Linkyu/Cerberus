@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator", "Orchestrato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "poc_task", "poc_task\poc_task.csproj", "{BA094A64-DF7F-431B-AEEE-FC341B93B896}"
+EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -22,6 +24,10 @@ Global
 		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F6C8973-6BEB-4493-AAC8-2525BF6A1DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
