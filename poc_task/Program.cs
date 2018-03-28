@@ -31,22 +31,37 @@ namespace poc_task
             }
 
             var results = _dnaInputFiles.Select((t, i) => Task.Run(() => ParseGenome(_dnaInputFiles.ElementAt(i)))).Select(infos => infos.Result).ToList();
-
+            
+            //Faire les totaux
+            var totalAdenine = 0;
+            var totalGuanine = 0;
+            var totalCytosine = 0;
+            var totalThymine = 0;
+            var totalDashes = 0;
+            var totalUnknowns = 0;
+            
             foreach (var result in results)
             {
                 if (result == null) continue;
-                
-                Console.WriteLine(result.Dashes + " dashes in this sequence.");
-                Console.WriteLine(result.Unknowns + "unknowns pairs");
-                Console.WriteLine("Adenine has " + result.InfosNitrogenBases['A'] +
-                                  " occurences in this sequence. ");
-                Console.WriteLine("Cytosine has " + result.InfosNitrogenBases['C'] +
-                                  " occurences in this sequence. ");
-                Console.WriteLine("Thymine has " + result.InfosNitrogenBases['T'] +
-                                  " occurences in this sequence. ");
-                Console.WriteLine("Guanine has " + result.InfosNitrogenBases['G'] +
-                                  " occurences in this sequence. ");
+                totalAdenine += result.InfosNitrogenBases['A'];
+                totalCytosine += result.InfosNitrogenBases['C'];
+                totalGuanine += result.InfosNitrogenBases['G'];
+                totalThymine += result.InfosNitrogenBases['T'];
+                totalUnknowns += result.Unknowns;
+                totalDashes += result.Dashes;
             }
+            
+            
+            Console.WriteLine(totalDashes + " dashes in this sequence.");
+            Console.WriteLine(totalUnknowns + "unknowns pairs");
+            Console.WriteLine("Adenine has " + totalAdenine +
+                              " occurences in this sequence. ");
+            Console.WriteLine("Cytosine has " + totalCytosine +
+                              " occurences in this sequence. ");
+            Console.WriteLine("Thymine has " + totalThymine +
+                              " occurences in this sequence. ");
+            Console.WriteLine("Guanine has " + totalGuanine +
+                              " occurences in this sequence. ");
             
             stopwatch.Stop();
             Console.Out.WriteLine("Time elapsed : " + stopwatch.ElapsedMilliseconds + " ms.");
