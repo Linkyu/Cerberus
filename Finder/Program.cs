@@ -127,7 +127,8 @@ namespace Finder
 			genomeMatchs.Sort(new GenomeMatchComparer());
 			for (var index= 0; index < genomeMatchs.Count; index++)
 			{
-				Console.WriteLine($"Rank {index}, {genomeMatchs[index]}");
+				genomeMatchs[index].Rank = index;
+				Console.WriteLine(genomeMatchs[index]);
 			}
 			
 			// Stop StopWatch and display elapsed time
@@ -141,6 +142,7 @@ namespace Finder
 			public readonly int Match;
 			private readonly int _maxMatch;
 			private readonly string _result;
+			public int Rank { private get; set; }
 
 			public GenomeMatch(int position, int match, int maxMatch, string result)
 			{
@@ -148,11 +150,12 @@ namespace Finder
 				Match = match;
 				_maxMatch = maxMatch;
 				_result = result;
+				Rank = 0;
 			}
 			
 			public override string ToString()
 			{
-				return $"position {Position}, match {Match}/{_maxMatch}, result : {_result}";
+				return $"Rank {Rank}, position {Position}, match {Match}/{_maxMatch}, result : {_result}";
 			}
 		}
 
