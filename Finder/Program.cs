@@ -97,7 +97,7 @@ namespace Finder
 				break;
 			}
 
-			if (matchPositions.Count < topMatch)
+			if (genomeMatchs.Count <= topMatch)
 			{
 				// For all joker sizes
 				for (var joker = 1; joker < matchArg.Length; joker++)
