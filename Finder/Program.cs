@@ -99,33 +99,36 @@ namespace Finder
 
 			if (matchPositions.Count < topMatch)
 			{
-				for (var jocker = 1; jocker < matchArg.Length; jocker++)
+				// For all joker sizes
+				for (var joker = 1; joker < matchArg.Length; joker++)
 				{
-					for (var i = 0; i <= matchArg.Length - jocker; i++)
+					// For all jocker positions
+					for (var i = 0; i <= matchArg.Length - joker; i++)
 					{
 						var jockerPattern = new StringBuilder(pattern);
-						jockerPattern.Remove(i, jocker).Insert(i, string.Concat(Enumerable.Repeat(".", jocker)));
-						//Console.WriteLine("Jocker pattern : {0}", jockerPattern.ToString());
+						jockerPattern.Remove(i, joker).Insert(i, string.Concat(Enumerable.Repeat(".", joker)));
 						var jockerRgx = new Regex(jockerPattern.ToString());
+						// For each match
 						foreach (Match match in jockerRgx.Matches(genotypesString.ToString()))
 						{
-							//Console.WriteLine("Match {0} : {1} {2}", jockerPattern.ToString(), match.Value, match.Index);
 							if (!matchPositions.Contains(match.Index))
 							{
-								genomeMatchs.Add(new GenomeMatch(match.Index, jockerPattern.Length - jocker, jockerPattern.Length, match.Value));
+								genomeMatchs.Add(new GenomeMatch(match.Index, jockerPattern.Length - joker, jockerPattern.Length, match.Value));
 								matchPositions.Add(match.Index);
 							}
-							if (matchPositions.Count < topMatch) continue;
+							if (genomeMatchs.Count <= topMatch) continue;
 							break;
 						}
-						if (matchPositions.Count < topMatch) continue;
+						if (genomeMatchs.Count <= topMatch) continue;
 						break;
 					}
+					if (genomeMatchs.Count <= topMatch) continue;
+					break;
 				}
 			}
 			
 			genomeMatchs.Sort(new GenomeMatchComparer());
-			for (var index= 0; index < genomeMatchs.Count; index++)
+			for (var index = 1; index < genomeMatchs.Count; index++)
 			{
 				genomeMatchs[index].Rank = index;
 				Console.WriteLine(genomeMatchs[index]);
