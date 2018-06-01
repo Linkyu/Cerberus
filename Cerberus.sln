@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "poc_task", "poc_task\poc_task.csproj", "{BA094A64-DF7F-431B-AEEE-FC341B93B896}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{792C153A-F108-41F1-903D-777EEFF1D410}"
+EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA094A64-DF7F-431B-AEEE-FC341B93B896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{792C153A-F108-41F1-903D-777EEFF1D410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{792C153A-F108-41F1-903D-777EEFF1D410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{792C153A-F108-41F1-903D-777EEFF1D410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{792C153A-F108-41F1-903D-777EEFF1D410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
