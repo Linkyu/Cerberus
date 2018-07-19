@@ -16,19 +16,24 @@ namespace Module_3
             using (var reader = new StreamReader(genomeFile)) {
 
                 reader.ReadLine();
-                
-                while (!reader.EndOfStream){
+                //TODO
+                while (!reader.EndOfStream)
+                {
                     var fileLine = reader.ReadLine();
+                    if (!fileLine.StartsWith("#")) {
+
+
                     var tokens = fileLine.Split('\t');
 
                     int chromosome = -1;
-                    
-                    if ( int.TryParse(tokens[1], out chromosome) &&  chromosome == numChromosome )
+
+                    if (int.TryParse(tokens[1], out chromosome) && chromosome == numChromosome)
                     {
-                        
+
                         occurences.Add(fileLine); //toutes les occurences du fichier pour un chromosome donné
                     }
                 }
+            }
             }
             //Rechercher un gène dans un chromosome donné
             var basesList = new List<string>();
