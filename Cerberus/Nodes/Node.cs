@@ -27,6 +27,8 @@ namespace Cerberus.Nodes
 		private Socket Socket;
 		protected string Address;
 		protected int Port;
+		private static ManualResetEvent SendDone = new ManualResetEvent(false);
+		private static ManualResetEvent ConnectDone = new ManualResetEvent(false);
 		
 		public Node(string address, int port)
 		{
@@ -44,13 +46,12 @@ namespace Cerberus.Nodes
 		public void Connect(string address, int port)
 		{
 			var endPoint = new IPEndPoint(IPAddress.Parse(address), port);
-			var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			var socket = new Socket(endPoint.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 			var node = new Node(socket, address, port);
 			try
 			{
 				socket.BeginConnect(endPoint, ConnectCallback, node);
-				Console.WriteLine("BeginConnect");
-				// Todo => Dispatch event
+				ConnectDone.WaitOne();
 			}
 			catch (Exception e)
 			{
@@ -60,31 +61,30 @@ namespace Cerberus.Nodes
 		
 		private void ConnectCallback(IAsyncResult ar)
 		{
-			var orchestrator = (Orchestrator)ar.AsyncState;
+			var orchestrator = (Node)ar.AsyncState;
 			try
 			{
 				// Complete the connection.
 				orchestrator.Socket.EndConnect(ar);
 				Console.WriteLine($"Connecté à l'orchestrateur : { orchestrator.Socket.RemoteEndPoint} ");
-				// Todo => Dispatch event
+				ConnectDone.Set();
 				Receive(orchestrator);
 			}
 			catch (SocketException)
 			{
-				// TODO => Dispatch event?
+				ConnectDone.Set();
 				Console.WriteLine("Hote distant injoignable, nouvel essai dans 3 secondes ...  ");
 				Thread.Sleep(3000);
 				Connect(orchestrator.Address, orchestrator.Port);
 			}
 		}
 
-		void SendData(Node node, Packet packet)
+		protected void Send(Node node, Packet packet)
 		{
 			var data = packet.Serialize();
 			try
 			{
-				// TODO => Use callback instead of null?
-				node.Socket.BeginSend(data, 0, data.Length, 0, null, node);
+				node.Socket.BeginSend(data, 0, data.Length, 0, SendCallback, node);
 			}
 			catch (SocketException e)
 			{
@@ -96,6 +96,21 @@ namespace Cerberus.Nodes
 					node.Socket.Close();
 					// TODO => Remove dead node
 				}
+			}
+		}
+
+		private void SendCallback(IAsyncResult ar)
+		{
+			try
+			{
+				var node = (Node)ar.AsyncState;
+				var client = node.Socket;
+				client.EndSend(ar);
+				SendDone.Set();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
 			}
 		}
 
@@ -176,7 +191,7 @@ namespace Cerberus.Nodes
 		{
 			// TODO => Process Command
 			// Read packet
-			// SendData(node, respPacket);
+			// Send(node, responsePacket);
 		}
 	}
 }

@@ -31,15 +31,16 @@ namespace Cerberus.Nodes
 				var port = ((IPEndPoint) socket.RemoteEndPoint).Port;
 				var node = new Node(socket, address, port);
 				Console.WriteLine($"Connexion acceptée depuis l'adresse {socket.RemoteEndPoint}");
-				IdentifyNode(socket, address, port);
+				IdentifyNode(node);
 				Receive(node);
 				nbNodes++;
 			}
 		}
 
-		private void IdentifyNode(Socket socket, string address, int port)
+		private void IdentifyNode(Node node)
 		{
 			var packet = new Packet(Commands.Identify, null, null);
+			Send(node,packet);
 		}
 	}
 }

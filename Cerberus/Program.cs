@@ -12,6 +12,10 @@ namespace Cerberus
 
 			var node = new Node(localAddr, 3334);
 			node.Connect(localAddr, orchPort);
+			while (true)
+			{
+				
+			}
 		}
 	}
 }
