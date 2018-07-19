@@ -83,7 +83,7 @@ namespace Module_3
             NitrogenBaseAssociations['C'] = 'G';
             NitrogenBaseAssociations['G'] = 'C';
 
-            int numChromosome = 8; //pour l'instant, on ne focalise la recherche que sur un chromosome;
+            int numChromosome = 2; //pour l'instant, on ne focalise la recherche que sur un chromosome;
             const string genomeFile = @"..\..\elgrian.txt";
             List<string>occurences = new List<string>();  // la liste des bases azotées pour un chromosome
             using (var reader = new StreamReader(genomeFile)) {
@@ -130,6 +130,7 @@ namespace Module_3
             //Premiere phase : à partir de la première base azotée.
             string FirstDnaStrand = builder.ToString();
             
+            
             //builder = new StringBuilder();
 
             /*for (var position = 0; position < 3 * nbCodonsMax; position++)
@@ -144,7 +145,10 @@ namespace Module_3
             if (FirstStop == -1) {
                 Console.WriteLine("Aucun codon STOP trouvé");
             }
-            
+
+            byte[] str = new byte[15];
+            builder = new StringBuilder(49511);
+            Console.WriteLine(FirstDnaStrand.Length + " nucleotides presents dans la sequence sur " + builder.Capacity + " nucleotides possibles.");
             
         }
     }
