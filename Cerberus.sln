@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finder", "Finder\Finder.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "Worker\Worker.csproj", "{30E7DC45-5EA1-4D7F-899C-0B027AE2162A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cerberus", "Cerberus\Cerberus.csproj", "{A0B5458B-BD2B-40F0-A7BD-F981CB308B4B}"
+EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8767A74F-7031-4BB3-8CDD-89836D6BCFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{30E7DC45-5EA1-4D7F-899C-0B027AE2162A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30E7DC45-5EA1-4D7F-899C-0B027AE2162A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30E7DC45-5EA1-4D7F-899C-0B027AE2162A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B5458B-BD2B-40F0-A7BD-F981CB308B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B5458B-BD2B-40F0-A7BD-F981CB308B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B5458B-BD2B-40F0-A7BD-F981CB308B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B5458B-BD2B-40F0-A7BD-F981CB308B4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
