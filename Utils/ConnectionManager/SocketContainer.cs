@@ -1,7 +1,7 @@
 using System.Net.Sockets;
 using System.Threading;
 
-namespace Utils
+namespace Utils.ConnectionManager
 {
 	public class SocketContainer
 	{
