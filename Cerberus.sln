@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{C792EE92-5BA6-4C91-B1C3-5A6413834EDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{0F542844-3F7B-41F1-9C53-D5AF26692DC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{6FFDEC70-30B6-43BF-905D-493BD90187D4}"
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -24,10 +24,10 @@ Global
 		{C792EE92-5BA6-4C91-B1C3-5A6413834EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C792EE92-5BA6-4C91-B1C3-5A6413834EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C792EE92-5BA6-4C91-B1C3-5A6413834EDF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F542844-3F7B-41F1-9C53-D5AF26692DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F542844-3F7B-41F1-9C53-D5AF26692DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F542844-3F7B-41F1-9C53-D5AF26692DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F542844-3F7B-41F1-9C53-D5AF26692DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
