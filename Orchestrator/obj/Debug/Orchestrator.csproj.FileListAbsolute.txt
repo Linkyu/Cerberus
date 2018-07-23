@@ -1,6 +1,6 @@
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\bin\Debug\Orchestrator.exe
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\bin\Debug\Orchestrator.pdb
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\obj\Debug\Orchestrator.csprojResolveAssemblyReference.cache
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\obj\Debug\Orchestrator.csproj.CoreCompileInputs.cache
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\obj\Debug\Orchestrator.exe
-C:\Users\Nox\RiderProjects\Cerberus\Orchestrator\obj\Debug\Orchestrator.pdb
+D:\linky\Documents\CESI\Cerberus\Orchestrator\bin\Debug\Orchestrator.exe
+D:\linky\Documents\CESI\Cerberus\Orchestrator\bin\Debug\Orchestrator.pdb
+D:\linky\Documents\CESI\Cerberus\Orchestrator\obj\Debug\Orchestrator.csprojResolveAssemblyReference.cache
+D:\linky\Documents\CESI\Cerberus\Orchestrator\obj\Debug\Orchestrator.csproj.CoreCompileInputs.cache
+D:\linky\Documents\CESI\Cerberus\Orchestrator\obj\Debug\Orchestrator.exe
+D:\linky\Documents\CESI\Cerberus\Orchestrator\obj\Debug\Orchestrator.pdb
