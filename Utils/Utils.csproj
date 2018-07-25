@@ -40,7 +40,7 @@
   <ItemGroup>
     <Compile Include="ConnectionManager\ClientConnector.cs" />
     <Compile Include="ConnectionManager\BaseConnector.cs" />
-    <Compile Include="ConnectionManager\Commands.cs" />
+    <Compile Include="ConnectionManager\Command.cs" />
     <Compile Include="ConnectionManager\Packet.cs" />
     <Compile Include="ConnectionManager\ServerConnector.cs" />
     <Compile Include="ConnectionManager\SocketContainer.cs" />

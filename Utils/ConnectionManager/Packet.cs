@@ -5,20 +5,34 @@ using System.Text;
 
 namespace Utils.ConnectionManager
 {
+	/// <summary>
+	/// Wrapper used to transmit Commands and Data by Socket
+	/// </summary>
 	[Serializable]
 	public class Packet
 	{
-		public Commands Command;
-		private string[] Args;
-		public string Data;
+		
+		public readonly Command Command;
+		private readonly string[] Args;
+		public readonly string Data;
 
-		public Packet(Commands command, string[] args, string data)
+		/// <summary>
+		/// Constructor used to create a new Packet from Command, Args and Data
+		/// </summary>
+		/// <param name="command">Command to be transmitted</param>
+		/// <param name="args">Args to be transmitted</param>
+		/// <param name="data">Data to be transmitted</param>
+		public Packet(Command command, string[] args, string data)
 		{
 			Command = command;
 			Args = args;
 			Data = data;
 		}
 
+		/// <summary>
+		/// Method used to serialize a Packet to an array of byte
+		/// </summary>
+		/// <returns>Packet converted to an array of byte</returns>
 		public byte[] Serialize()
 		{
 			var formatter = new BinaryFormatter();
@@ -34,6 +48,11 @@ namespace Utils.ConnectionManager
 			}
 		}
 
+		/// <summary>
+		/// Method used to deserialize a Packet from a array of byte
+		/// </summary>
+		/// <param name="arrBytes">Array of byte representing a Packet</param>
+		/// <returns>Deserialized Packet</returns>
 		public static Packet Deserialize(byte[] arrBytes)
 		{
 			using (var stream = new MemoryStream())
