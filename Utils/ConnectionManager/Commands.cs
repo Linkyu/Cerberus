@@ -2,6 +2,7 @@ namespace Utils.ConnectionManager
 {
 	public enum Commands
 	{
-		Identify
+		Identify,
+		IdentifyAck
 	}
 }

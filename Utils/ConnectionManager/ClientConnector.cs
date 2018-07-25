@@ -1,13 +1,15 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Threading;
 
 namespace Utils.ConnectionManager
 {
 	public class ClientConnector : BaseConnector
 	{
-		private static ManualResetEvent ConnectDone = new ManualResetEvent(false);
+		private static readonly ManualResetEvent ConnectDone = new ManualResetEvent(false);
+		public event Action<Packet, SocketContainer> PacketReceived = delegate { }; 
 		
 		public ClientConnector(string address, int port) : base(address, port)
 		{
@@ -29,7 +31,7 @@ namespace Utils.ConnectionManager
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
+				Logger.Debug(e.ToString());
 			}
 		}
 		
@@ -40,18 +42,23 @@ namespace Utils.ConnectionManager
 			{
 				// Complete the connection.
 				orchestrator.Socket.EndConnect(ar);
-				Console.WriteLine($"Connecté à l'orchestrateur : { orchestrator.Socket.RemoteEndPoint} ");
+				Logger.Debug($"Connected to Orchestrator { orchestrator.Socket.RemoteEndPoint} ");
 				ConnectDone.Set();
 				Receive(orchestrator);
 			}
 			catch (SocketException)
 			{
 				ConnectDone.Set();
-				Console.WriteLine("Hote distant injoignable, nouvel essai dans 3 secondes ...  ");
-				Thread.Sleep(3000);
+				Logger.Debug("Can't join host, new try in 10s ...  ");
+				Thread.Sleep(10000);
 				Connect(orchestrator.Address, orchestrator.Port);
 			}
 		}
 
+		protected override void ReceivePacket(Packet packet, SocketContainer socketContainer)
+		{
+			Logger.Debug("ClientConnector - ReceivePacket");
+			PacketReceived(packet, socketContainer);
+		}
 	}
 }

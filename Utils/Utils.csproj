@@ -44,6 +44,7 @@
     <Compile Include="ConnectionManager\Packet.cs" />
     <Compile Include="ConnectionManager\ServerConnector.cs" />
     <Compile Include="ConnectionManager\SocketContainer.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

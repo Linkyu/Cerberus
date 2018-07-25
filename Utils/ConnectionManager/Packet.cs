@@ -8,9 +8,9 @@ namespace Utils.ConnectionManager
 	[Serializable]
 	public class Packet
 	{
-		private Commands Command;
+		public Commands Command;
 		private string[] Args;
-		private string Data;
+		public string Data;
 
 		public Packet(Commands command, string[] args, string data)
 		{
