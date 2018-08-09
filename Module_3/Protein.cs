@@ -7,26 +7,51 @@ namespace Module_3
 {
     public class Protein
     {
-        //private List<string> listAminoAcid;
+        private List<string> listAminoAcid;
+
+        public Protein()
+        {
+            listAminoAcid = new List<string>();
+        }
+
+        public void AddAminoAcid(string aminoAcid)
+        {
+            listAminoAcid.Add(aminoAcid);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder proteinBuilder = new StringBuilder();
+
+            foreach (var aminoacid in listAminoAcid)
+            {
+                proteinBuilder.Append(aminoacid).Append("-");
+            }
+
+            return proteinBuilder.ToString();
+        }
     }
 
     /*
      * RNAPolymerase is the protein witch makes RiboNucleic Acid from DNA
-     *
      */
 
-    public class RNAPolymerase : Protein
+    public class RnaPolymerase : Protein
     {
         public string dnaSequence { get; set; }
 
-        public RNAPolymerase(string dnaSequence)
+        public RnaPolymerase(string dnaSequence)
         {
             this.dnaSequence = dnaSequence;
 
         }
         
-
-        private static string getRNANucleotid(string nucleotid)
+       /// <summary>
+       ///  For each nucleotid received in parameter, return the RNA equivalent nucleotid.
+       /// </summary>
+       /// <param name="nucleotid"> The nucleotid we want the RNA equivalent.</param>
+       /// <returns>The RNA equivalent nucleotid</returns>
+        private static string GetRnaNucleotid(string nucleotid)
         {
             Dictionary<string, string> coupleBase = new Dictionary<string, string>
             {
@@ -39,125 +64,62 @@ namespace Module_3
         } 
 
         /// <summary>
-        /// Search a gene in the given DNA sequence
+        /// Search a gene in the DNA sequence.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a gene with the nucleotidic sequence starting with the Ribosom Binding Site.</returns>
         public Gene SearchGenomicSequence()
         {
             var firstDnaStrand = dnaSequence;
-            StringBuilder builder;
-            //**************************************************************************************************
-            // PARTIE 1 : Recherche de deux condons STOP et d'un start.
-            //Chercher le premier codon stop*
+
+
             var firstStop = firstDnaStrand.IndexOf("TAA", new StringComparison());
-            Console.WriteLine(firstStop == -1
-                ? "Aucun codon STOP trouvé"
-                : "Codon stop trouvé à l'index : " + firstStop + "du brin d'ADN");
-
+            
             //Chercher le deuxieme codon stop
+            Console.WriteLine("Premier stop : " + firstStop);
             var secondStop = firstDnaStrand.IndexOf("TAA", firstStop + 3, new StringComparison());
-            Console.WriteLine(secondStop == -1
-                ? "Aucun codon STOP trouvé"
-                : "Codon stop trouvé à l'index : " + secondStop + " du brin d'ADN");
+
             var initiationIndex = -1;
-
-            //On vérifie que le premier stop est bien avant la deuxième
-            if (secondStop - firstStop - 3 > 0)
-            {
-                //Chercher un codon start
-                initiationIndex = firstDnaStrand.IndexOf("ATG", firstStop + 3, new StringComparison());
-                if (initiationIndex > -1)
-                {
-                    Console.WriteLine("Un codon start a été trouvé à l'index " + initiationIndex);
-                }
-            }
-
-            if (initiationIndex < secondStop && initiationIndex > firstStop)
-            {
-                //le start est situé entre deux codon stop. Vérifier qu'il s'agisse bien d'une séquence codante.
-                Console.WriteLine(
-                    initiationIndex > -1 && ((secondStop + 3) - initiationIndex) > 0 &&
-                    ((secondStop + 3) - initiationIndex) % 3 == 0
-                        ? "Une séquence codante a peut être été trouvé."
-                        : (secondStop + 3) - initiationIndex +
-                          " est négatif ou n'est pas un multiple de 3. La séquence est non codante.");
-            }
-
-            builder = new StringBuilder();
-            //Affichage de la séquence codante.
-            if ((secondStop + 3 - initiationIndex) % 3 != 0) return null;
-            for (var i = initiationIndex; i < secondStop + 3; i++)
-            {
-                builder.Append(firstDnaStrand[i]);
-            }
-
-            var candidateSequence =
-                builder.ToString(); // séquence qui contient les deux stop et un start entre les 2.
-            // ***************************************************************************************************************************
-            //PARTIE 2 : Recherche d'un site de fixation du ribosome.
-            //A partir de maintenant on ne travaille plus que sur une séquence candidate, c'est à dire celle qui se situe entre les 2 stops.
-
-            /*Motifs possible pour un RBS :
-             * AGGAGG
-             * AGGA
-             * GAGG
-             * GGAG
-             */
 
             var listRbs = new List<string>();
             listRbs.Add("AGGAGG");
             listRbs.Add("AGGA");
             listRbs.Add("GAGG");
             listRbs.Add("GGAG");
+              
 
             //Chercher un site de fixation pour le ribosome
             var rbsIndex = 0;
             var rbsResult = "";
             foreach (var ribosomBindingSite in listRbs)
             {
-                rbsIndex = candidateSequence.IndexOf(ribosomBindingSite, new StringComparison());
+                rbsIndex = firstDnaStrand.IndexOf(ribosomBindingSite, new StringComparison());
                 if (rbsIndex > -1)
                 {
                     rbsResult = ribosomBindingSite;
                 }
-                else
-                {
-                }
             }
-
-
+            
             Console.WriteLine(rbsIndex == -1
                 ? "Aucun site de fixation du ribosome n'a été trouvé"
                 : rbsIndex + " : un site de fixation a été trouvé.");
-            if (rbsIndex > -1)
-            {
-                //l'index du codon d'initiation ne va porter que sur la séquence candidate.
-                initiationIndex =
-                    candidateSequence.IndexOf("ATG", rbsIndex + rbsResult.Length + 1, new StringComparison());
-                Console.WriteLine(initiationIndex == -1
-                    ? "Codon start introuvable"
-                    : initiationIndex + " : Codon start trouvé.");
 
-            }
-
-
-            //TODO : avant de renvoyer la séquence génomique, bien s'assurer qu'un codon start est présent entre le site de fixation du ribosome et le dernier codon stop.
             //Chercher un start APRES le RBS  
             initiationIndex =
-                candidateSequence.IndexOf("ATG", rbsIndex + rbsResult.Length - 1, new StringComparison());
+                firstDnaStrand.IndexOf("ATG", rbsIndex + rbsResult.Length - 1, new StringComparison());
 
-            if (initiationIndex > -1)
+            if (initiationIndex > -1 && (secondStop - firstStop -3) > 0 && (secondStop - (initiationIndex + 3)) % 3 == 0 )
             {
                 //Un codon start a été trouvé, la séquence codante peut être reconstituée à partit du RBS
-                builder = new StringBuilder();
-                for (var i = rbsIndex; i < candidateSequence.Length; i++)
+                Console.WriteLine("Test : Sequence trouvee.");
+               var  builder = new StringBuilder();
+                for (var i = rbsIndex; i < firstDnaStrand.Length; i++)
                 {
-                    builder.Append(candidateSequence[i]);
+                    builder.Append(firstDnaStrand[i]);
                 }
 
                 var dnaResult = builder.ToString();
                 Gene gene = new Gene(dnaResult);
-                gene.locus = initiationIndex;
+                gene.indexStart = initiationIndex;
                 return gene;
             }
             else
@@ -167,7 +129,7 @@ namespace Module_3
         }
         
         /// <summary>
-        /// Transcription d'un gène en une séquence d'ARN Messager
+        /// Transcript a gene into a RNA sequence.
         /// </summary>
         /// <param name="genome"></param>
         /// <returns></returns>
@@ -176,7 +138,7 @@ namespace Module_3
             StringBuilder rnaSequenceBuilder = new StringBuilder();
             foreach (var nucleotid in genome.GenomicSequence)
             {
-                rnaSequenceBuilder.Append(getRNANucleotid(nucleotid.ToString()));
+                rnaSequenceBuilder.Append(GetRnaNucleotid(nucleotid.ToString()));
             }
             
             return new RiboNucleicAcid(rnaSequenceBuilder.ToString());

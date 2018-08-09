@@ -6,7 +6,7 @@
         public string GenomicSequence { get; set; }
         
         //the index of the gene in the sequence
-        public int locus { get; set; }
+        public int indexStart;
         
         public Gene(string sequence)
         {

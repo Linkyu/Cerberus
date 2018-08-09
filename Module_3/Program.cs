@@ -10,7 +10,7 @@ namespace Module_3
     {
         public static void Main()
         {
-            const string genomeFile = @"..\..\mimbee.txt";
+            /*const string genomeFile = @"..\..\karen.txt";
             var occurences = new List<string>();  // la liste des bases azotées pour un chromosome
             
             try
@@ -39,28 +39,48 @@ namespace Module_3
             foreach (var occurence in occurences) {
                 builder = new StringBuilder();
                 var tokens = occurence.Split('\t');
-                var  firstBase = tokens[3][0];
-                if (firstBase == '-' || firstBase == ' ' || firstBase == 'I' || firstBase == 'D') {
-                } else {
-                    //ajouter les couples à la liste des bases
-                    basesList.Add(tokens[3]);
+                if (tokens[3].Length == 2)
+                {
+                    var firstBase = tokens[3][1];
+                    if (firstBase == '-' || firstBase == ' ' || firstBase == 'I' || firstBase == 'D')
+                    {
+                    }
+                    else
+                    {
+                        //ajouter les couples à la liste des bases
+                        basesList.Add(tokens[3]);
+                    }
                 }
+
             }
 
             foreach (var baseCouple in basesList)
             {
                 builder.Append(baseCouple[0]);
-            }
+            }*/
             
-            var firstDnaStrand = builder.ToString();
-            
+            //var firstDnaStrand = builder.ToString();
+            var firstDnaStrand = "TAAATGGGAGAACGAAGCGATGTGCGTGCCTAGCGCTTGTATCCGCAAATAA";
             //Analyse de la séquence d'adn par la protéine qui va synthétiser un ARNMessager.
-             RNAPolymerase polymerase = new RNAPolymerase(firstDnaStrand);
-            Gene gene = polymerase.SearchGenomicSequence();
-            RiboNucleicAcid rna = polymerase.transcript(gene); 
+             RnaPolymerase polymerase = new RnaPolymerase(firstDnaStrand);
             
+            Gene gene = polymerase.SearchGenomicSequence();
             Console.WriteLine(gene == null ? "Aucun gene trouve" : gene.GenomicSequence);
+
+            if (gene == null)
+            {
+                return;
+            }
+            RiboNucleicAcid rna = polymerase.transcript(gene);
+       
+            
             Console.WriteLine(rna == null ? "Echec de la transcription" : rna.Sequence);
+            
+            Ribosom ribosom = new Ribosom();
+            Protein finalProtein = ribosom.translate(rna, gene.indexStart);
+            
+            Console.WriteLine(finalProtein.ToString());
+            
         }
     }
    
