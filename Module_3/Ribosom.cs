@@ -9,7 +9,7 @@ namespace Module_3
 
         public Protein translate(RiboNucleicAcid acid, int startIndex)
         {
-            if (!checkRBS(acid))
+            if (!CheckRbs(acid))
             {
                 throw new Exception("No RBS detected.");
             }
@@ -35,8 +35,13 @@ namespace Module_3
 
             return protein;
         }
-
-        private static bool checkRBS(RiboNucleicAcid acid) {
+         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acid"></param>
+        /// <returns></returns>
+        private static bool CheckRbs(RiboNucleicAcid acid) {
             
             var listRbs = new List<string>();
             listRbs.Add("AGGAGG");

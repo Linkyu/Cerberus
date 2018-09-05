@@ -3,8 +3,16 @@ using System.Collections.Generic;
 
 namespace Module_3
 {
+    /// <summary>
+    /// Class that describes the genetic code. This class helps to translate a codon in a RNA giving the
+    /// right aminoacid associated with the codon.
+    /// </summary>
     public class GeneticCode
+    
     {
+        /// <summary>
+        /// Dictionnary that represents the genetic code.
+        /// </summary>
         private static Dictionary<string, string> geneticCode = new Dictionary<string, string>
             {
                 ["UUU"] = "Phenilalaline",
@@ -73,9 +81,15 @@ namespace Module_3
                 ["GGG"] = "Glycine"
             };
 
+        /// <summary>
+        /// Give the aminoacid associated with the given codon.
+        /// </summary>
+        /// <param name="codon">The codon to be translated.</param>
+        /// <returns>A string representing the amino acid</returns>
+        /// <exception cref="Exception"></exception>
         public static string getAminoAcid(string codon) {
             if (codon.Length != 3) {
-                throw new Exception();
+                throw new Exception(codon + " n'existe pas.");
             }
             return geneticCode[codon];
 
