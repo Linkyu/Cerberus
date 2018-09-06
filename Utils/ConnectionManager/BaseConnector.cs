@@ -143,6 +143,7 @@ namespace Utils.ConnectionManager
 					var dataToConcat = new byte[nbByteReceived];
 					Array.Copy(stateObj.Buffer, 0, dataToConcat, 0, nbByteReceived);
 					stateObj.Data.Add(dataToConcat);
+					if (nbByteReceived == 0) return;
 					if (IsEndOfMessage(stateObj.Buffer, nbByteReceived))
 					{
 						var data = ConcatByteArray(stateObj.Data);
