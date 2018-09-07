@@ -9,7 +9,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{C792EE92-5BA6-4C91-B1C3-5A6413834EDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{6FFDEC70-30B6-43BF-905D-493BD90187D4}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finder", "Finder\Finder.csproj", "{9E96215F-754A-4F37-9F72-BE8844E1836A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.csproj", "{BDAA97D5-17AC-46E2-86AB-F50BFB66D4C8}"
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -29,6 +30,10 @@ Global
 		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FFDEC70-30B6-43BF-905D-493BD90187D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAA97D5-17AC-46E2-86AB-F50BFB66D4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAA97D5-17AC-46E2-86AB-F50BFB66D4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAA97D5-17AC-46E2-86AB-F50BFB66D4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAA97D5-17AC-46E2-86AB-F50BFB66D4C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
