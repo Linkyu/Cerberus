@@ -1,6 +1,0 @@
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\bin\Debug\Calculator.exe
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\bin\Debug\Calculator.pdb
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\obj\Debug\Calculator.exe
-C:\Users\Nox\RiderProjects\Cerberus\Calculator\obj\Debug\Calculator.pdb
